@@ -1,6 +1,35 @@
 # week7
 ## app.py
 ```python
+from ssl import ALERT_DESCRIPTION_BAD_RECORD_MAC
+from flask import Flask
+from flask import jsonify 
+from flask import request 
+from flask import redirect 
+from flask import render_template 
+from flask import session
+from flask import url_for
+from flask import make_response
+from flask_restful import Api, Resource
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="127.0.0.1",
+  user="root",
+  password="",
+  database="website"
+)
+
+app=Flask(
+    __name__,
+    static_folder="public",
+    static_url_path="/" 
+)
+
+api=Api(app)
+
+app.secret_key="any string but secret"
+
 #api
 @app.route("/api/member",methods=["get","patch"])
 def api_member():
