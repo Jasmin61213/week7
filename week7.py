@@ -50,7 +50,7 @@ def api_member():
         name=request.get_json()
         name=name["name"]
         cursor=mydb.cursor(dictionary=True)
-        name_update="UPDATE member set name=%s WHERE username=%s"
+        name_update="UPDATE member SET name=%s WHERE username=%s"
         value=(name,username)
         cursor.execute(name_update,value)
         mydb.commit()
