@@ -23,12 +23,6 @@
         </div>
         <hr>
         <div class="text">查詢會員姓名</div>
-        <!-- <div  class="form">
-            <form action="/api/member">
-                <div class="input">查詢：<input type="text" name="username"/></div>
-                <div class="button"><button onclick="submit();">查詢</button></div>
-            </form>
-        </div> -->
         <div  class="form">
             <div>
                 <div class="input">查詢：<input type="text" id="username"/></div>
@@ -69,10 +63,6 @@
                     let getUsername=document.querySelector(".getUsername");
                     getUsername.innerHTML=getUsernameText;                    
                 };
-                // let newGetUsername=document.createElement("div");
-                // newGetUsername.appendChild(getUsernameText);
-                // target[2].replaceChild(newGetUsername,oldGetUsername);
-                // console.log(target[2])
             });
         };       
         function patch(){
@@ -106,23 +96,6 @@
                     update.innerHTML=updateText;                      
                 };                
             });
-        };
-        //     let username=document.getElementById("username").value;
-        //     let url="http://127.0.0.1:3000/api/member";
-        //     fetch(url,{
-        //         method:"PATCH",
-        //         headers:new Headers({
-        //             "content-type":"application/json"
-        //         })
-        //     }).then(function(response){
-        //         return response.json();
-        //     }).then(function(username){
-        //             data={
-        //                 "name" : username
-        //             }
-        //             console.log(data)
-        //         })
-        //     };
-        // ;         
+        };      
     </script>
 </html>
