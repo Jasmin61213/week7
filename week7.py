@@ -13,7 +13,7 @@ import mysql.connector
 mydb = mysql.connector.connect(
   host="127.0.0.1",
   user="root",
-  password="12131213",
+  password="",
   database="website"
 )
 
@@ -25,17 +25,39 @@ app=Flask(
 
 api=Api(app)
 
-# class user(Resource):
-#     def get(self,username):
-#         username=request.form["username"]
-#         cursor=mydb.cursor()
-#         data_select="SELECT id,name,username FROM member WHERE username=%s"
-#         value=username
-#         cursor.execute(data_select,value)
-#         data=cursor.fetchall()
-
-
 app.secret_key="any string but secret"
+
+#api
+@app.route("/api/member",methods=["GET","PATCH"])
+def api_member():
+    if request.method=="GET":
+        username=request.args.get("username",None)
+        cursor=mydb.cursor(dictionary=True)
+        data_select="SELECT id,name,username FROM member WHERE username=%s"
+        value=(username,)
+        cursor.execute(data_select,value)
+        data=cursor.fetchall()
+        try:
+            if data!=[]:
+                return make_response(jsonify({"data":data}),200)
+            if "account" not in session:
+                return jsonify({"data":None})
+        except:
+            print("Unexpected Error")
+
+    if request.method=="PATCH":
+        username=session["account"]
+        name=request.get_json()
+        name=name["name"]
+        cursor=mydb.cursor(dictionary=True)
+        name_update="UPDATE member set name=%s WHERE username=%s"
+        value=(name,username)
+        cursor.execute(name_update,value)
+        mydb.commit()
+        try:
+            return jsonify({"ok":True})
+        except:
+            return jsonify({"error":True})
 
 # 首頁
 @app.route("/")
@@ -120,38 +142,6 @@ def message():
     cursor.execute(sql,val)
     mydb.commit()
     return redirect("/member")
-
-#api
-@app.route("/api/member",methods=["get","patch"])
-def api_member():
-    if request.method=="GET":
-        username=request.args.get("username",None)
-        cursor=mydb.cursor(dictionary=True)
-        data_select="SELECT id,name,username FROM member WHERE username=%s"
-        value=(username,)
-        cursor.execute(data_select,value)
-        data=cursor.fetchall()
-        try:
-            if data!=[]:
-                return make_response(jsonify({"data":data}),200)
-            if "account" not in session:
-                return jsonify({"data":None})
-        except:
-            print("Unexpected Error")
-
-    if request.method=="PATCH":
-        username=session["account"]
-        name=request.get_json()
-        name=name["name"]
-        cursor=mydb.cursor(dictionary=True)
-        name_update="UPDATE member set name=%s WHERE username=%s"
-        value=(name,username)
-        cursor.execute(name_update,value)
-        mydb.commit()
-        try:
-            return jsonify({"ok":True})
-        except:
-            return jsonify({"error":True})
 
 # 埠號
 app.run(port=3000)
