@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>week6</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body style="background-color:#f7f9f9">
+        <div class="title">歡迎光臨，請輸入帳號密碼</div>
+        <div class="text">註冊帳號</div>
+        <div  class="form">
+            <form action="/signup" method="post">
+                <div class="input">姓名: <input type="text" name="name"/></div>                
+                <div class="input">帳號: <input type="text" name="account"/></div>
+                <div class="input">密碼: <input type="password" name="secret"/></div>
+                <div class="button"><button>註冊</button></div>
+            </form>
+        </div>
+        <hr>
+        <div class="text">登入系統</div>
+        <div  class="form">
+            <form action="/signin" method="post">
+                <div class="input">帳號: <input type="text" name="account"/></div>
+                <div class="input">密碼: <input type="password" name="secret"/></div>
+                <div class="button"><button>登入</button></div>
+            </form>
+        </div> 
+    </body>
+</html>
